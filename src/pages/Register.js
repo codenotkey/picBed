@@ -1,21 +1,24 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {useStores} from "../stores";
-import {Form, Input,Checkbox,Button} from "antd";
+import {Form, Input,Checkbox,Button,message} from "antd";
 import styled from "styled-components";
 import {Auth} from "../model";
 import {useHistory} from 'react-router-dom'
 
 const Content = styled.div`
   max-width: 600px;
-  margin: 10vh auto ;
-  box-shadow: 1px 1px 2px 1px rgba(38, 38, 38, 0.25);
+  margin: 10vh auto;
+  box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 12px;
   border: none;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+  background-color: white;
+
 `
 
 const Title = styled.h1`
@@ -37,7 +40,7 @@ const Component = observer(()=>{
     };
 
     const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+        message.error('注册失败')
     };
     const validateUsername = (rule,value)=>{
         if(/\W/.test(value)) return Promise.reject('用户名只可以包含字母和下划线')
@@ -50,18 +53,21 @@ const Component = observer(()=>{
             return Promise.reject('两次密码不相同')
         }
     })
+    const [form] = Form.useForm();
     return (
         <Content>
             <Title>注册</Title>
             <Form
                 name="basic"
-                labelCol={{ span: 6 }}
-                wrapperCol={{ span: 18}}
+                form={form}
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16}}
                 initialValues={{ remember: true }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
             >
                 <Form.Item
+                    style={{ width: 360 }}
                     label="用户名"
                     name="username"
                     rules={[
@@ -94,9 +100,16 @@ const Component = observer(()=>{
                     <Input.Password />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ offset: 6, span: 18 }}>
-                    <Button type="primary" htmlType="submit">
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit" >
                         注册
+                    </Button>
+                    <Button type="primary" danger  style={{marginLeft:40}}
+                            onClick={() => {
+                                form.resetFields();
+                            }}
+                    >
+                        重置
                     </Button>
                 </Form.Item>
             </Form>

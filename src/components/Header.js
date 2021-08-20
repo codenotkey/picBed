@@ -13,18 +13,20 @@ const Header = styled.header`
   align-items: center;
   padding: 10px 100px;
   background-color: white;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+  box-shadow: 0 0 8px 0 rgba(28,31,33,.1);
 `
-const Logo = styled.span`
+const Logo = styled(NavLink)`
   font-size: 18px;
-  color: #4680ff;
+  color:  #004fff;
 `
 const StyledLink = styled(NavLink)`
   color: #423f3f;
   margin-left: 30px;
 
   &.active {
-    border-bottom: 1px solid white;
+    color:#004fff;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #4680ff;
   }
 `
 const  Login = styled.div`
@@ -61,7 +63,7 @@ const Component = observer(()=>{
                 <StyledLink to='/history' activeClassName='active' >历史</StyledLink>
                 <StyledLink to='/about' activeClassName='active' >关于</StyledLink>
             </nav>
-            <Logo>PicBed</Logo>
+            <Logo to='/' activeClassName='active' exact>PicBed</Logo>
             <Login>{
                     UserStore.currentUser ?
                     <>

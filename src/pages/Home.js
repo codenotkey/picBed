@@ -1,9 +1,12 @@
 import React from "react";
+import Uploader from "../components/Uploader";
+import Tips from "../components/Tips";
 
 function Home(){
     return(
         <>
-            <h1>这是主页</h1>
+            <Tips>登录以后方可使用</Tips>
+            <Uploader/>
         </>
     )
 }

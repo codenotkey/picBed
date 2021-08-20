@@ -1,9 +1,10 @@
 import AV , {Query, User} from 'leancloud-storage'
+import resolve from "resolve";
 
 AV.init({
-    appId:'MbcRYxSG7Ri9RrhLisAYJHau-gzGzoHsz',
-    appKey:'UV8V9AAdvDjhfq0R9zpQ8GBB',
-    serverURL:'https://mbcryxsg.lc-cn-n1-shared.com'
+    appId:'qUoILAETnUgzCrW0yiziLHlw-MdYXbMMI',
+    appKey:'NgDxLfs1De0WmqEoLr8bGn6m',
+    serverURL:'https://quoilaet.api.lncldglobal.com'
 })
 
 const Auth = {
@@ -29,4 +30,52 @@ const Auth = {
         User.logOut()
     }
 }
-export {Auth}
+
+const Uploader = {
+    add(file,filename){
+        // avFile.save(
+        //         {
+        //             onprogress: (progress) => {
+        //                 fielUrl = progress.percent
+        //                 console.log(progress.percent);
+        //                 console.log('保持中');
+        //             }
+        //         }
+        // ).then((file) => {
+        //     file.url()
+        // }, (error) => {
+        //     console.log(error)
+        // });
+
+        const item = new AV.Object('Image');
+        const avFile = new AV.File(filename, file);
+        item.set('filename', filename);
+        item.set('owner', AV.User.current());
+        item.set('url', avFile);
+        return new Promise((resolve,reject)=>{
+            item.save().then(serverFile => resolve(serverFile),error => reject(error))
+        })
+    },
+    find({page=0,limit=10}){
+        const query = new AV.Query('Image')
+        query.include('owner')
+        query.limit(limit)
+        query.skip(page*limit)
+        query.descending('createdAt')
+        query.equalTo('owner', AV.User.current())
+        return new Promise((resolve,reject)=>{
+            query.find()
+                .then(results => resolve(results))
+                .catch(error => reject(error))
+        })
+    },
+    // delete(picId){
+    //     const item = AV.Object.createWithoutData('Image', picId);
+    //     item.destroy();
+    //     return new  Promise((resolve,reject)=>{
+    //         item.destroy().then(()=> resolve('删除成功'))
+    //                       .catch(error => reject(error))
+    //     })
+    // }
+}
+export {Auth,Uploader}

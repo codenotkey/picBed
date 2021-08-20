@@ -12,6 +12,9 @@ import {Switch,Route} from 'react-router-dom';
 const Home = lazy(() => import('./pages/Home'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy( ()=> import('./pages/Register'))
+const History = lazy( ()=> import('./pages/History'))
+const About = lazy( ()=> import('./pages/About'))
+const NoMatch = lazy(()=>import('./pages/404'))
 // import Home from './pages/Home';
 
 function App() {
@@ -24,6 +27,9 @@ function App() {
             <Route path="/" exact component={Home} />
             <Route path="/login"  component={Login} />
             <Route path={'/register'} component={Register} />
+            <Route path={'/history'} component={History} />
+            <Route path={'/about'} component={About} />
+            <Route path="*" component={NoMatch}/>
           </Switch>
         </Suspense>
       </main>

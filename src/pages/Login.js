@@ -1,7 +1,7 @@
 import React from "react";
 import {observer} from "mobx-react";
 import {useStores} from "../stores";
-import {Form, Input,Checkbox,Button} from "antd";
+import {Form, Input, Checkbox, Button, message} from "antd";
 import styled from "styled-components";
 import {Auth} from "../model";
 import {useHistory} from 'react-router-dom'
@@ -9,13 +9,15 @@ import {useHistory} from 'react-router-dom'
 const Content = styled.div`
   max-width: 600px;
   margin: 10vh auto ;
-  box-shadow: 1px 1px 2px 1px rgba(38, 38, 38, 0.25);
+  box-shadow: 0 4px 8px 0 rgba(28,31,33,.1);
   padding: 20px;
-  border-radius: 16px;
+  border-radius: 12px;
   border: none;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
+  background-color: white;
 `
 
 const Title = styled.h1`
@@ -34,7 +36,7 @@ const Component = observer(()=>{
                 history.push('/')
             }).catch((e)=>{
                 console.log(e)
-                console.log('登录失败')
+                message.error('登录失败')
         })
     };
 
@@ -60,6 +62,7 @@ const Component = observer(()=>{
                 <Form.Item
                     label="用户名"
                     name="username"
+                    style={{ width: 360 }}
                     rules={[
                         { required: true, message: '请输入用户名！' },
                         {validator:validateUsername},

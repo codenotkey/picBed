@@ -1,9 +1,11 @@
 import React from "react";
+import {observable} from "mobx";
+import List from '../components/List'
 
 function History(){
     return(
         <>
-            <h1>这是主页</h1>
+            <List/>
         </>
     )
 }
