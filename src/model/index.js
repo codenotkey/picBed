@@ -69,13 +69,13 @@ const Uploader = {
                 .catch(error => reject(error))
         })
     },
-    // delete(picId){
-    //     const item = AV.Object.createWithoutData('Image', picId);
-    //     item.destroy();
-    //     return new  Promise((resolve,reject)=>{
-    //         item.destroy().then(()=> resolve('删除成功'))
-    //                       .catch(error => reject(error))
-    //     })
-    // }
+    delete(picId){
+        const item = AV.Object.createWithoutData('Image', picId);
+        item.destroy();
+        return new  Promise((resolve,reject)=>{
+            item.destroy().then(()=> resolve('删除成功'))
+                          .catch(error => reject(error))
+        })
+    }
 }
 export {Auth,Uploader}

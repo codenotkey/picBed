@@ -23,7 +23,7 @@ function Component(){
     return(
         <Footer>
             <FootImg src={gitIcon}/>
-            <FootA href={'https://github.com/codenotkey/picBed'}>项目源码连接</FootA>
+            <FootA href={'https://github.com/codenotkey/picBed'}>项目源码</FootA>
         </Footer>
     )
 }

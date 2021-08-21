@@ -118,14 +118,14 @@ const Component = observer(()=>{
                         <dd>
                             <Image src={ImageStore.serverFile.attributes.url.attributes.url}/>
                         </dd>
-                        <dt>更多尺寸</dt>
-                        <dd>
-                            <input ref={ref1} onChange={bindWidthChange} placeholder="最大宽度（可选）"/>
-                            <input ref={ref2} onChange={bindHeightChange} placeholder="最大高度（可选）"/>
-                        </dd>
-                        <dd>
-                            <a  target="_blank" href={store.fullStr}>{store.fullStr}</a>
-                        </dd>
+                        {/*<dt>更多尺寸</dt>*/}
+                        {/*<dd>*/}
+                        {/*    <input ref={ref1} onChange={bindWidthChange} placeholder="最大宽度（可选）"/>*/}
+                        {/*    <input ref={ref2} onChange={bindHeightChange} placeholder="最大高度（可选）"/>*/}
+                        {/*</dd>*/}
+                        {/*<dd>*/}
+                        {/*    <a  target="_blank" href={store.fullStr}>{store.fullStr}</a>*/}
+                        {/*</dd>*/}
                     </dl>
                 </Result> : null
             }

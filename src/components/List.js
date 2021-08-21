@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {observer} from "mobx-react";
 import {useStores} from "../stores";
-import {List,Spin,Avatar,Popconfirm,message} from 'antd'
+import {List,Spin,Button,Popconfirm,message} from 'antd'
 import styled from "styled-components";
 import InfiniteScroll from 'react-infinite-scroller';
 import copy from 'copy-to-clipboard';
@@ -17,25 +17,30 @@ const Img = styled.img`
 const Component = observer(()=>{
     const {HistoryStore} = useStores()
 
-    const loadMore = ()=>{
-        HistoryStore.find()
-        console.log('loadMore')
-    }
-
     useEffect(()=>{
         return ()=>{
             HistoryStore.reset()
         }
     },[])
 
+    const loadMore = ()=>{
+        HistoryStore.find()
+    }
+
+    const [list,setList] = React.useState(HistoryStore.list)
+    console.log('----1');
+    console.log(list);
+    console.log('----2');
+    console.log(HistoryStore.list)
     const handleCopy= (value) =>{
         copy(value)
         message.info('链接复制成功')
     }
-    // const handleDelete =(picId,index) =>{
-    //     // HistoryStore.list.splice(index,1)
-    //     HistoryStore.deleteItem(picId)
-    // }
+    const handleDelete =(picId,index) =>{
+        console.log('this is index'+index)
+        HistoryStore.deleteItem(picId,index)
+    }
+
     return (
         <div>
             <h1>上传历史</h1>
@@ -49,15 +54,12 @@ const Component = observer(()=>{
                 <List
                     dataSource={HistoryStore.list}
                     renderItem={(item,index) =>
-                        <List.Item key={item.id} actions={[
-                                <a key="list-loadmore-edit" onClick={()=>handleCopy(item.attributes.url.attributes.url)}>复制</a>
-                            ,
-                            // <a key="list-loadmore-more" onClick={()=>handleDelete(item.id,index)} >删除</a>
+                        <List.Item key={index} actions={[
+                                <Button type={'link'} key="list-loadmore-edit" onClick={()=>handleCopy(item.attributes.url.attributes.url)}>复制链接</Button>,
+                                <Button type={'link'} danger key="list-loadmore-more" onClick={()=>handleDelete(item.id,index)} >删除图片</Button>
                         ]}>
                             <List.Item.Meta
-                                avatar={
-                                    <Img src={item.attributes.url.attributes.url} />
-                                }
+                                avatar={<Img src={item.attributes.url.attributes.url} />}
                                 title={<a href={item.attributes.url.attributes.url}>{item.attributes.filename}</a>}
                                 description={item.attributes.url.attributes.url}
                             />
