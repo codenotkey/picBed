@@ -27,11 +27,11 @@ const Component = observer(()=>{
         HistoryStore.find()
     }
 
-    const [list,setList] = React.useState(HistoryStore.list)
-    console.log('----1');
-    console.log(list);
-    console.log('----2');
-    console.log(HistoryStore.list)
+    // const [list,setList] = useState(HistoryStore.list)
+    // console.log('----1');
+    // console.log(list);
+    // console.log('----2');
+    // console.log(HistoryStore.list)
     const handleCopy= (value) =>{
         copy(value)
         message.info('链接复制成功')

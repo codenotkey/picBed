@@ -37,13 +37,11 @@ class historyStore{
     }
 
     @action deleteItem(picId,index){
-        // console.log('this is cc index' + index)
-        this.my =this.list.slice()
-        // console.log(this.my);
         Uploader.delete(picId)
             .then(result =>{
-                this.list = this.list.splice(index,1)
-                // console.log(this.list)
+                let temp =  [...this.list]
+                temp.splice(index,1)
+                this.list = temp
                 message.info('删除成功')
             })
             .catch((error)=>{

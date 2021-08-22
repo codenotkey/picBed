@@ -23,6 +23,11 @@ const Image = styled.img`
    max-width: 300px;
 `
 
+const Dt = styled.dt`
+  font-weight: bolder;
+  font-size: 16px;
+`
+
 
 const Component = observer(()=>{
     const {ImageStore,UserStore} = useStores()
@@ -79,12 +84,12 @@ const Component = observer(()=>{
             }
             ImageStore.upload()
                 .then((serverFile)=>{
-                    console.log('上传成功')
-                    console.log(serverFile);
+                    message.info('上传成功,请等待链接显示')
+                    // console.log(serverFile);
                 }).catch((err)=>{
                 // console.log(err);
                 // console.log(ImageStore.filename)
-                console.log('上传失败')
+                message.error('上传失败')
             })
             return  false
         }
@@ -107,14 +112,14 @@ const Component = observer(()=>{
                 ImageStore.serverFile ? <Result>
                     <H1>上传结果</H1>
                     <dl>
-                        <dt>线上地址</dt>
+                        <Dt>线上地址</Dt>
                         <dd>
                             <a target="_blank" href={ImageStore.serverFile.attributes.url.attributes.url} style={{width:'50px'}}>{ ImageStore.serverFile.attributes.url.attributes.url}</a>
                         </dd>
                         <dt><Button type="primary" shape="round" onClick={()=>handleCopy(ImageStore.serverFile.attributes.url.attributes.url)}>复制链接</Button></dt>
-                        <dt>文件名</dt>
+                        <Dt>文件名</Dt>
                         <dd>{ImageStore.filename}</dd>
-                        <dt>图片预览</dt>
+                        <Dt>图片预览</Dt>
                         <dd>
                             <Image src={ImageStore.serverFile.attributes.url.attributes.url}/>
                         </dd>
